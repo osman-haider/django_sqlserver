@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+</head>
+<body>
+    <h1>Employee List</h1>
+    <table border="1">
+        <tr>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Action</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.0|add:0  }}</td>
+            <td>{{ employee.1 }}</td>
+            <td>{{ employee.2 }}</td>
+            <td>
+                <a href="{% url 'employee_update' employee.0|add:0  %}">Edit</a>
+                <a href="{% url 'employee_delete' employee.0|add:0  %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'employee_create' %}">Add Employee</a>
+</body>
+</html>
