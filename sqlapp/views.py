@@ -28,6 +28,11 @@ def employee_create(request):
 def employee_update(request, employee_id):
     connection = get_connection()
     cursor = connection.cursor()
+
+    # Fetch the current employee's data by employee_id
+    cursor.execute("SELECT EmployeeID, FirstName, LastName FROM Employees WHERE EmployeeID = ?", [employee_id])
+    employee = cursor.fetchone()
+
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -45,7 +50,7 @@ def employee_update(request, employee_id):
 
         return redirect('employee_list')
 
-    return render(request, 'employee_update.html')
+    return render(request, 'employee_update.html', {'employee': employee})
 
 def employee_delete(request, employee_id):
     connection = get_connection()
